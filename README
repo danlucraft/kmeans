@@ -1,0 +1,10 @@
+kmeans clustering
+=================
+
+Usage:
+
+  ruby bin/kmeans DATA_FILE --means=N
+
+Tests:
+
+  rspec spec/
