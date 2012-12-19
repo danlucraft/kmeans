@@ -2,4 +2,8 @@ $:.push(File.expand_path("../../lib", __FILE__))
 require 'kmeans'
 
 cli = Kmeans::CLI.new(ARGV)
-cli.run
+solver = cli.solver
+solver.cluster_means.each do |mean|
+  p mean
+end
+

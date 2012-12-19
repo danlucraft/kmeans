@@ -27,12 +27,13 @@ module Kmeans
       end
     end
 
-    def run
+    def solver
       unless input_path
         puts "USAGE: bin/kmeans FILE"
         exit 1
       end
       puts "Got #{input_vectors.length} vectors"
+      Kmeans::IterativeSolver.new(input_vectors)
     end
   end
 end
