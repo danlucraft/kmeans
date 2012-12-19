@@ -1,4 +1,3 @@
-
 module Kmeans
   class CLI
     def initialize(args)
@@ -22,7 +21,7 @@ module Kmeans
         lines.each do |line|
           line = line.chomp
           if line =~ /^#{FLOAT_MATCHER},#{FLOAT_MATCHER}$/
-            vectors << Vector.new($1.to_f, $2.to_f)
+            vectors << Vector[$1.to_f, $2.to_f]
           else 
             $stderr.puts "unknown line format: '#{line}'"
           end
