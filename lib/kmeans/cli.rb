@@ -2,6 +2,11 @@ module Kmeans
   class CLI
     def initialize(args)
       @args = args
+      usage if help?
+    end
+
+    def help?
+      @args.include?("-h") or @args.include?("--help")
     end
 
     def num_means
@@ -36,11 +41,18 @@ module Kmeans
     end
 
     def solver
+      @solver ||= Kmeans::IterativeSolver.new(num_means, input_vectors)
+    end
+
+    def run
       usage unless input_path
       usage unless num_means
       puts "Got #{input_vectors.length} vectors"
       puts "Solving for #{num_means} means"
-      Kmeans::IterativeSolver.new(num_means, input_vectors)
+      solver.stabilize_means
+      solver.means.sort_by {|v| v[0]}.each do |mean|
+        puts("%3.3f, %3.3f" % [mean[0], mean[1]])
+      end
     end
   end
 end

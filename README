@@ -1,6 +1,8 @@
 kmeans clustering
 =================
 
+Forgy initialization, convergence determined by no change in means between iterations.
+
 Usage:
 
   ruby bin/kmeans DATA_FILE --means=N

@@ -56,6 +56,13 @@ module Kmeans
       prev_sig == signature
     end
 
+    def stabilize_means
+      until iterate
+        puts "iterating"
+        true
+      end
+    end
+
     def assign
       @data.each do |value|
         cluster = clusters.sort_by { |cluster| (value - cluster.mean).magnitude }.first

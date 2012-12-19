@@ -2,12 +2,5 @@ $:.push(File.expand_path("../../lib", __FILE__))
 require 'kmeans'
 
 cli = Kmeans::CLI.new(ARGV)
-solver = cli.solver
-until solver.iterate
-  puts "iterating"
-  true
-end
-solver.means.sort_by {|v| v[0]}.each do |mean|
-  puts("%3.3f, %3.3f" % [mean[0], mean[1]])
-end
+cli.run
 
