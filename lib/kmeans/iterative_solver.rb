@@ -33,10 +33,7 @@ module Kmeans
     def initialize(k, data)
       @k, @data = k, data
       @clusters = random_values(k).map {|m| Cluster.new(m) }
-      @data.each do |value|
-        cluster = clusters.sort_by { |cluster| (value - cluster.mean).magnitude }.first
-        cluster.add(value)
-      end
+      assign
     end
 
     def means
@@ -54,11 +51,15 @@ module Kmeans
     def iterate
       prev_sig = signature
       clusters.each(&:update_mean)
+      assign
+      prev_sig == signature
+    end
+
+    def assign
       @data.each do |value|
         cluster = clusters.sort_by { |cluster| (value - cluster.mean).magnitude }.first
         cluster.add(value)
       end
-      prev_sig == signature
     end
   end
 end
