@@ -27,10 +27,4 @@ describe Kmeans::IterativeSolver do
       @solver.clusters.map(&:values).flatten.sort.should == @values
     end
   end
-
-  describe "update_means" do
-    before do
-
-    end
-  end
 end

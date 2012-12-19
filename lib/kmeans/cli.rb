@@ -50,6 +50,7 @@ module Kmeans
       puts "Got #{input_vectors.length} vectors"
       puts "Solving for #{num_means} means"
       solver.stabilize_means
+      puts "Result:"
       solver.means.sort_by {|v| v[0]}.each do |mean|
         puts("%3.3f, %3.3f" % [mean[0], mean[1]])
       end

@@ -1,7 +1,7 @@
 
 module Kmeans
   class IterativeSolver
-    attr_reader :clusters, :data
+    attr_reader :clusters, :data, :k
 
     class Cluster
       attr_reader :mean, :values
@@ -9,12 +9,6 @@ module Kmeans
       def initialize(mean)
         @mean = mean
         @values = []
-      end
-
-      def update_mean
-        @mean = observed_mean
-        @values = []
-        @observed_mean = nil
       end
 
       def observed_mean
@@ -32,6 +26,10 @@ module Kmeans
 
     def initialize(k, data)
       @k, @data = k, data
+      initialize_clusters
+    end
+
+    def initialize_clusters
       @clusters = random_values(k).map {|m| Cluster.new(m) }
       assign
     end
@@ -45,22 +43,19 @@ module Kmeans
     end
 
     def signature
-      clusters.map {|c| [c.observed_mean] }
+      clusters.map {|c| c.observed_mean }.sort_by(&:magnitude)
     end
 
     # returns true if the assignments didn't change during the update
     def iterate
       prev_sig = signature
-      clusters.each(&:update_mean)
+      @clusters = clusters.map {|c| Cluster.new(c.observed_mean) }
       assign
       prev_sig == signature
     end
 
     def stabilize_means
-      until iterate
-        puts "iterating"
-        true
-      end
+      true until iterate
     end
 
     def assign
