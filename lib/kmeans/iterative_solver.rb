@@ -18,7 +18,11 @@ module Kmeans
       end
 
       def observed_mean
-        @observed_mean ||= @values.inject {|m,o| m + o }/@values.length.to_f
+        if @values.length == 0
+          @mean
+        else
+          @observed_mean ||= @values.inject {|m,o| m + o }/@values.length.to_f
+        end
       end
 
       def add(value)
