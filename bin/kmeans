@@ -8,6 +8,6 @@ until solver.iterate
   true
 end
 solver.means.sort_by {|v| v[0]}.each do |mean|
-  p mean
+  puts("%3.3f, %3.3f" % [mean[0], mean[1]])
 end
 
