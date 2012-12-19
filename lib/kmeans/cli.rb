@@ -5,6 +5,10 @@ module Kmeans
       @args = args
     end
 
+    def num_means
+      @args.map {|arg| arg =~ /^--means=(\d+)$/; $1 ? $1.to_i : nil }.compact.first
+    end
+
     def input_path
       @args.detect {|arg| File.exist?(arg) && File.file?(arg) }
     end
@@ -27,13 +31,17 @@ module Kmeans
       end
     end
 
+    def usage
+      puts "USAGE: bin/kmeans --means=N FILE"
+      exit 1
+    end
+
     def solver
-      unless input_path
-        puts "USAGE: bin/kmeans FILE"
-        exit 1
-      end
+      usage unless input_path
+      usage unless num_means
       puts "Got #{input_vectors.length} vectors"
-      Kmeans::IterativeSolver.new(input_vectors)
+      puts "Solving for #{num_means} means"
+      Kmeans::IterativeSolver.new(num_means, input_vectors)
     end
   end
 end

@@ -11,9 +11,5 @@ module Kmeans
     def random_values(n)
       @data.shuffle[0...n]
     end
-
-    def cluster_means
-      []
-    end
   end
 end

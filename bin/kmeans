@@ -3,7 +3,7 @@ require 'kmeans'
 
 cli = Kmeans::CLI.new(ARGV)
 solver = cli.solver
-solver.cluster_means.each do |mean|
+solver.means.each do |mean|
   p mean
 end
 
