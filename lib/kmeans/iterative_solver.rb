@@ -45,9 +45,10 @@ module Kmeans
     end
 
     def signature
-      clusters.map {|c| [c.observed_mean, c.values.length] }
+      clusters.map {|c| [c.observed_mean] }
     end
 
+    # returns true if the assignments didn't change during the update
     def iterate
       prev_sig = signature
       clusters.each(&:update_mean)
